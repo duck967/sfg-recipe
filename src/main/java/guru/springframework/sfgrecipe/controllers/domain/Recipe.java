@@ -1,5 +1,7 @@
 package guru.springframework.sfgrecipe.controllers.domain;
 
+import java.util.Base64;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,7 +37,7 @@ public class Recipe {
     private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
 
     @Lob
@@ -120,6 +122,14 @@ public class Recipe {
 
     public void setImage(Byte[] image) {
         this.image = image;
+    }
+
+    public String getImageBase64() {
+        byte[] imageBytes = new byte[image.length];
+        for (int i=0; i<image.length; i++) {
+            imageBytes[i] = image[i];
+        }
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 
     public Notes getNotes() {
