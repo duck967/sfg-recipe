@@ -48,7 +48,7 @@ public class DataLoader  implements CommandLineRunner {
         unitOfMeasureRepository.findByDescription("Teaspoon").orElseThrow(() -> new Exception("Ingredient not found - Teaspoon"));
         // ...
 
-        
+
         List<Ingredient> ingredientsGuacamole = new ArrayList<Ingredient>();
         ingredientsGuacamole.add(ingredientFactory("Avocado", "2", "Quantity"));
         ingredientsGuacamole.add(ingredientFactory("Salt", ".25", "Teaspoon"));
@@ -76,11 +76,10 @@ public class DataLoader  implements CommandLineRunner {
         Byte[] guacamoleImageBytes = getImageFileBytes("static/images/guacamole.jpg");
         recipeGuacamole.setImage(guacamoleImageBytes);
 
-        recipeGuacamoleNotes.setRecipe(recipeGuacamole);
+        //recipeGuacamoleNotes.setRecipe(recipeGuacamole);
 
         for (Ingredient ingredient : ingredientsGuacamole) {
-            recipeGuacamole.getIngredients().add(ingredient);
-            ingredient.setRecipe(recipeGuacamole);
+            recipeGuacamole.addIngredient(ingredient);
         }
         Recipe savedRecipeGuacamole = recipeRepository.save(recipeGuacamole);
 
@@ -106,11 +105,10 @@ public class DataLoader  implements CommandLineRunner {
         Byte[] spicyTacosImageBytes = getImageFileBytes("static/images/guacamole.jpg");
         recipeSpicyTacos.setImage(spicyTacosImageBytes);
 
-        recipeSpicyTacosNotes.setRecipe(recipeSpicyTacos);
+        //recipeSpicyTacosNotes.setRecipe(recipeSpicyTacos);
 
         for (Ingredient ingredient : ingredientsSpicyTacos) {
-            recipeSpicyTacos.getIngredients().add(ingredient);
-            ingredient.setRecipe(recipeSpicyTacos);
+            recipeSpicyTacos.addIngredient(ingredient);
         }
 
         Recipe savedRecipeSpicyTacos = recipeRepository.save(recipeSpicyTacos);
