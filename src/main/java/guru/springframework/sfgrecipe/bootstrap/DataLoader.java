@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -20,7 +22,9 @@ import guru.springframework.sfgrecipe.controllers.domain.Recipe;
 import guru.springframework.sfgrecipe.repositories.CategoryRepository;
 import guru.springframework.sfgrecipe.repositories.RecipeRepository;
 import guru.springframework.sfgrecipe.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class DataLoader  implements CommandLineRunner {
 
@@ -41,9 +45,11 @@ public class DataLoader  implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
         System.out.println("dataloader starting ...");
+        log.debug(" --------------------- dataloader starting ...");
 
         unitOfMeasureRepository.findByDescription("Teaspoon").orElseThrow(() -> new Exception("Ingredient not found - Teaspoon"));
         // ...
@@ -114,6 +120,7 @@ public class DataLoader  implements CommandLineRunner {
         Recipe savedRecipeSpicyTacos = recipeRepository.save(recipeSpicyTacos);
 
         System.out.println("dataloader ran ...");
+        log.debug(" --------------------- dataloader ran ...");
         
 
         

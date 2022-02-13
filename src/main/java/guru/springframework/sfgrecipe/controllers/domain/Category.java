@@ -3,12 +3,17 @@ package guru.springframework.sfgrecipe.controllers.domain;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+@Data
+@EqualsAndHashCode(exclude = {"recipies"})
 @Entity
 public class Category {
     
@@ -19,30 +24,5 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipies;
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Recipe> getRecipies() {
-        return recipies;
-    }
-
-    public void setRecipies(Set<Recipe> recipies) {
-        this.recipies = recipies;
-    }
-
 
 }
